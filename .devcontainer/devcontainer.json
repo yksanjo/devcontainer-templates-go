@@ -1,0 +1,43 @@
+{
+  "name": "Go Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/go:1.21",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "1.21",
+      "tools": ["gotests", "gofmt", "golint", "gopls"]
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "ms-vscode.powershell",
+        "ms-azuretools.vscode-docker",
+        "mtxr.sqltools",
+        "visualstudioexptteam.vscodeintellicode",
+        "eamodio.gitlens",
+        "mutantdino.resourceromulator"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "golang.go",
+        "go.formatTool": "gofmt",
+        "go.lintTool": "golangci-lint",
+        "go.useLanguageServer": true,
+        "go.testFlags": ["-v", "-race"],
+        "go.coverageOptions": "toggle",
+        "go.gotoSymbol.includeGoroutines": true,
+        "files.associations": {
+          "*.go": "go"
+        },
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "go install golang.org/x/tools/cmd/gotests@latest && go install golang.org/x/lint/golint@latest && go version",
+  "portsToForward": [3000, 8080, 9090],
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=local"
+}
